@@ -33,10 +33,13 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date '+%d.%b.%y_%I-%M%p')"
+      - name: Get project name
+        id: project_name
+        run: echo "::set-output name=project_name::${PWD##*/}"  
       - name: upload to artifacts
         uses: actions/upload-artifact@v1
         with:
-            name: getx_example${{ steps.date.outputs.date }}.apk
+            name: ${{ steps.project_name.outputs.project_name }}_${{ steps.date.outputs.date }}.apk
             path: build/app/outputs/apk/release/app-release.apk
         # uses: ncipollo/release-action@v1
         # with:
