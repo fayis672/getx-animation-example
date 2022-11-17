@@ -33,13 +33,11 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date '+%d.%b.%y_%I-%M%p')"
-      - name: apk rename
-        run: mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/getx_example_${{ steps.date.outputs.date }}.apk
-      - name: Push to Releases
+      - name: upload to artifacts
         uses: actions/upload-artifact@v1
         with:
-            name: release-apk
-            path: build/app/outputs/apk/release/getx_example_${{ steps.date.outputs.date }}.apk
+            name: getx_example${{ steps.date.outputs.date }}.apk
+            path: build/app/outputs/apk/release/app-release.apk
         # uses: ncipollo/release-action@v1
         # with:
         #   artifacts: "build/app/outputs/apk/debug/*,build/ios/iphoneos/app.ipa"
